@@ -11,9 +11,12 @@ defmodule Roomchat do
   end
 
   def send_message(message) do
-    noeud = Node.list() |> List.first |> IO.inspect(label: "Destinataire")
+    for noeud <- Node.list()|> IO.inspect(label: "Destinataire") do
+
+
     GenServer.cast({:global, :"#{noeud}-chat"}, {:receive, message})
   end
+end
 
   def handle_cast({:receive, message}, state) do
     IO.puts(message)
